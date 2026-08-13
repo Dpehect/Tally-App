@@ -1,0 +1,355 @@
+@page
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <title>Tally - Create Beautiful Forms for Free | Unlimited Forms &amp; Submissions</title>
+    <meta name="description" content="The simplest way to create beautiful, professional forms in seconds. Unlimited forms, unlimited submissions, forever free. Just start typing - no coding needed." />
+    <link rel="icon" type="image/png" href="https://tally.so/tally-square.png" />
+    <style>
+        :root {
+            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --text: #37352F;
+            --accent: #0070D7;
+            --magenta: #F81CE5;
+            --gray-600: #5F5E5A;
+            --gray-700: #45433E;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { font-size: 16px; -webkit-font-smoothing: antialiased; }
+        body {
+            font-family: var(--font-family), sans-serif;
+            color: var(--text);
+            background: #fff;
+            line-height: 1.5;
+        }
+        a { color: inherit; text-decoration: none; }
+        .container { max-width: 1024px; margin: 0 auto; padding: 0 24px; }
+        header {
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            border-bottom: 1px solid transparent;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 100;
+        }
+        .logo img { height: 28px; }
+        .nav { display: flex; gap: 8px; align-items: center; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 28px;
+            padding: 0 0.7em;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 7px;
+            border: 0;
+            cursor: pointer;
+            transition: background 100ms ease;
+        }
+        .btn-ghost { background: transparent; color: var(--gray-600); }
+        .btn-ghost:hover { background: rgba(0,0,0,0.04); color: var(--gray-700); }
+        .btn-primary { background: var(--accent); color: #fff; height: 36px; font-size: 15px; padding: 0 0.9em; border-radius: 8px; }
+        .btn-primary:hover { background: #005BB5; }
+        .btn-black { background: #000; color: #fff; height: 36px; font-size: 15px; padding: 0 0.9em; border-radius: 8px; }
+        .btn-black:hover { background: #37352F; }
+        .hero {
+            text-align: center;
+            padding: 80px 0 40px;
+        }
+        .hero h1 {
+            font-size: 64px;
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        @@media (max-width: 992px) { .hero h1 { font-size: 36px; letter-spacing: -1px; } }
+        @@media (max-width: 576px) { .hero h1 { font-size: 28px; } }
+        .hero p {
+            font-size: 22px;
+            font-weight: 500;
+            max-width: 600px;
+            margin: 0 auto 32px;
+            color: var(--gray-700);
+        }
+        @@media (max-width: 992px) { .hero p { font-size: 16px; } }
+        .hero .note { font-size: 13px; color: var(--gray-600); margin-top: 12px; }
+        .section { padding: 80px 0; }
+        .section h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        @@media (max-width: 992px) { .section h2 { font-size: 24px; } }
+        .section .subtitle {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--gray-700);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+        .cards { display: grid; gap: 24px; }
+        .card {
+            background: #fefefe;
+            border-radius: 10px;
+            box-shadow: rgba(0,0,0,0.12) 0 1px 1px, rgba(61,59,53,0.16) 0 0 0 1px, rgba(61,59,53,0.08) 0 3px 9px;
+            overflow: hidden;
+            padding: 32px;
+        }
+        .card h3 { font-size: 20px; font-weight: 800; margin-bottom: 12px; }
+        .card p { line-height: 1.6; color: var(--gray-700); }
+        .card.featured {
+            box-shadow: 0 0 0 2px #f81ce5, 0 0 0 4px rgba(248,28,229,0.36);
+        }
+        .card.featured h3 {
+            background: linear-gradient(to right, #8a46ff 0%, #f81ce0 50%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 26px;
+        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        @@media (max-width: 758px) { .grid-2 { grid-template-columns: 1fr; } }
+        .features-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; }
+        @@media (max-width: 992px) { .features-list { grid-template-columns: 1fr; } }
+        .feature-item { display: flex; flex-direction: column; gap: 8px; }
+        .feature-item strong { color: var(--text); }
+        .feature-item span { color: var(--gray-600); font-size: 15px; }
+        .quote {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #777672;
+            margin: 60px 0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .quote-author { font-size: 16px; color: var(--text); margin-top: 16px; font-weight: 600; }
+        .quote-role { font-size: 13px; color: var(--gray-600); font-weight: normal; }
+        .logo-wall { text-align: center; margin: 40px 0; color: var(--gray-600); font-size: 15px; font-weight: 500; }
+        .logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; margin-top: 20px; align-items: center; opacity: 0.7; }
+        .logos img { height: 28px; filter: grayscale(1); }
+        footer {
+            border-top: 1px solid rgba(55,53,47,0.09);
+            padding: 60px 0;
+            margin-top: 80px;
+        }
+        .footer-grid { display: grid; grid-template-columns: 1fr 3fr; gap: 40px; }
+        @@media (max-width: 758px) { .footer-grid { grid-template-columns: 1fr; } }
+        .footer-col h4 { font-weight: 600; margin-bottom: 12px; }
+        .footer-col a { display: block; color: var(--gray-700); margin-bottom: 8px; font-size: 15px; }
+        .footer-col a:hover { text-decoration: underline; }
+        .cta-section { text-align: center; padding: 80px 0; }
+        .cta-section h2 { font-size: 40px; margin-bottom: 16px; }
+        .badge { display: inline-block; background: #E3EFFF; color: var(--accent); font-size: 13px; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin-bottom: 16px; }
+        .browser-mock {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: rgba(0,0,0,0.09) 0 3px 12px, 2px solid rgba(55,53,47,0.09);
+            overflow: hidden;
+            margin: 40px auto;
+            max-width: 900px;
+        }
+        .browser-bar { background: #f5f5f5; padding: 12px 16px; display: flex; gap: 8px; border-bottom: 1px solid rgba(55,53,47,0.09); }
+        .browser-dot { width: 12px; height: 12px; border-radius: 50%; background: #DFDFDE; }
+        .browser-content { padding: 40px; min-height: 300px; background: linear-gradient(180deg, #fafafa 0%, #fff 100%); display: flex; align-items: center; justify-content: center; color: var(--gray-600); font-size: 18px; }
+        .highlight { color: var(--magenta); font-style: normal; }
+        .icon { color: var(--magenta); margin-bottom: 12px; display: block; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo">
+            <img src="https://tally.so/images/logo_v2.png" alt="Tally" width="70" height="28" />
+        </a>
+        <div class="nav">
+            <a href="/pricing" class="btn btn-ghost">Pricing</a>
+            <a href="/login" class="btn btn-ghost">Log in</a>
+            <a href="/signup" class="btn btn-ghost">Sign up</a>
+            <a href="/create" class="btn btn-primary">Create form</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <h1>The simplest way to create forms</h1>
+            <p>Say goodbye to boring forms. Meet Tally — the free, intuitive form builder you’ve been looking for.</p>
+            <a href="/create" class="btn btn-primary" style="height:40px;font-size:16px;padding:0 1.2em;">
+                Create a free form →
+            </a>
+            <div class="note">No signup required</div>
+        </section>
+
+        <!-- Product mock -->
+        <div class="browser-mock">
+            <div class="browser-bar">
+                <div class="browser-dot"></div>
+                <div class="browser-dot"></div>
+                <div class="browser-dot"></div>
+            </div>
+            <div class="browser-content">
+                <div style="text-align:center;">
+                    <div style="font-size:48px;margin-bottom:16px;">✨</div>
+                    <strong>Just start typing</strong><br/>
+                    Build forms like a document — Notion-style blocks
+                </div>
+            </div>
+        </div>
+
+        <!-- Logo wall -->
+        <div class="logo-wall">
+            Powering 500,000+ teams at the world’s best companies
+            <div class="logos">
+                <img src="https://tally.so/images/demo/v2/logos/notion.png" alt="Notion" />
+                <img src="https://tally.so/images/demo/v2/logos/make.png" alt="Make" />
+                <img src="https://tally.so/images/demo/v2/logos/buy-me-a-coffee.png" alt="Buy Me a Coffee" />
+                <img src="https://tally.so/images/demo/v2/logos/rakuten.png" alt="Rakuten" />
+                <img src="https://tally.so/images/demo/v2/logos/glovo.png" alt="Glovo" />
+            </div>
+        </div>
+
+        <!-- Feature 1 -->
+        <section class="section">
+            <h2>A form builder like no other</h2>
+            <p class="subtitle">Tally makes it simple for anyone to build free online forms. No need to code — just type your questions like you would in a doc.</p>
+
+            <div class="card featured" style="margin-bottom:24px;">
+                <h3>Unlimited forms and submissions for free</h3>
+                <p>Paywalls getting in the way? Not anymore. Tally gives you unlimited forms and submissions, completely free, as long as you stay within our fair usage guidelines.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <span class="icon">⌘</span>
+                    <h3>Just start typing</h3>
+                    <p>Tally is a new type of online form builder that works like a text document. Just start typing on the page and insert blocks same as Notion.</p>
+                </div>
+                <div class="card">
+                    <span class="icon">🔒</span>
+                    <h3>Privacy-friendly form builder</h3>
+                    <p>Your data privacy and security are our top priorities. We are <b>GDPR compliant</b> and treat your data with care and confidentiality.<br/><br/>
+                    Tally is <b>hosted in Europe</b>, we don’t use cookie-tracking, and all form data is securely stored and <b>encrypted</b> both in transit and at rest.</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                “Loving Tally! Not sure why I only started using it now, so good!”
+                <div class="quote-author">Ben Lang</div>
+                <div class="quote-role">Angel investor, previously at Notion</div>
+            </div>
+        </section>
+
+        <!-- Simple but powerful -->
+        <section class="section">
+            <h2>Simple <span class="highlight">but</span> powerful</h2>
+            <p class="subtitle">Advanced features packed in a simple form builder. It couldn’t be easier to create forms that convert.</p>
+
+            <div class="card" style="margin-bottom:32px;">
+                <h3>Build any form in seconds</h3>
+                <p>Easily create online forms using our wide range of free input blocks. Collect contact info, files, signatures, payments, and much more. Build everything from surveys to quizzes to lead generation forms.</p>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <strong>@@ Contact info</strong>
+                    <span>Collect names, addresses, phone numbers, emails &amp; links.</span>
+                </div>
+                <div class="feature-item">
+                    <strong>💳 Accept payments</strong>
+                    <span>Create checkout forms without code via Stripe.</span>
+                </div>
+                <div class="feature-item">
+                    <strong>✍️ Signatures</strong>
+                    <span>Accept e-signatures and streamline contract signing.</span>
+                </div>
+                <div class="feature-item">
+                    <strong>🏆 Rate &amp; rank</strong>
+                    <span>Visual ratings, scales, and rankings.</span>
+                </div>
+                <div class="feature-item">
+                    <strong>📎 File uploads</strong>
+                    <span>Collect images, PDFs, video and audio files.</span>
+                </div>
+                <div class="feature-item">
+                    <strong>📅 Date &amp; Time</strong>
+                    <span>Allow respondents to easily select date and time.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intelligent forms -->
+        <section class="section">
+            <h2>Craft <span class="highlight">intelligent</span> forms</h2>
+            <p class="subtitle">Our smart features make it easy to turn your forms into a tailored experience for every respondent.</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <span class="icon">🌿</span>
+                    <h3>Conditional logic</h3>
+                    <p>Create smart forms based on your respondents' input. Jump to a page, calculate dynamic values, hide specific blocks and require answers.</p>
+                </div>
+                <div class="card">
+                    <span class="icon">🧮</span>
+                    <h3>Calculated fields</h3>
+                    <p>Define dynamic values (score, price, lead status) and use conditional logic to perform operations: add, subtract, multiply, divide, assign or concatenate.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="badge">Forever free</div>
+            <h2>Ready to create your first form?</h2>
+            <p style="margin-bottom:24px;color:var(--gray-700);">Unlimited forms &amp; submissions. No credit card required.</p>
+            <a href="/create" class="btn btn-primary" style="height:44px;font-size:16px;">Create a free form →</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <img src="https://tally.so/images/logo_v2.png" alt="Tally" height="24" style="margin-bottom:16px;" />
+                <p style="color:var(--gray-600);font-size:14px;">The simplest way to create forms for free.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="/pricing">Pricing</a>
+                    <a href="/templates">Templates</a>
+                    <a href="/integrations">Integrations</a>
+                    <a href="/help">Help Center</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="/about">About</a>
+                    <a href="/blog">Blog</a>
+                    <a href="/careers">Careers</a>
+                    <a href="/contact">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="/help/terms-conditions">Terms</a>
+                    <a href="/help/privacy">Privacy</a>
+                    <a href="/help/gdpr">GDPR</a>
+                    <a href="/help/fair-use-policy">Fair Use</a>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="margin-top:40px;padding-top:24px;border-top:1px solid rgba(55,53,47,0.09);font-size:13px;color:var(--gray-600);">
+            © 2026 Tally Forms. Made with ❤️ in Europe.
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,89 @@
+@page
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create form — Tally</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Inter, system-ui, sans-serif; color: #37352F; background: #fafafa; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: #fff; height: 56px; display: flex; align-items: center; padding: 0 20px; border-bottom: 1px solid #eaeaea; }
+        .logo img { height: 24px; }
+        .editor { flex: 1; max-width: 720px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 0 0 1px rgba(55,53,47,0.09); padding: 48px; min-height: 500px; }
+        .editor h1 { font-size: 32px; font-weight: 700; outline: none; border: none; width: 100%; margin-bottom: 24px; }
+        .editor h1:empty:before { content: "Untitled form"; color: #bbbab8; }
+        .block { margin-bottom: 16px; padding: 8px 0; border-bottom: 1px dashed transparent; }
+        .block:hover { border-bottom-color: #eaeaea; }
+        .block input, .block textarea { width: 100%; border: none; outline: none; font-size: 16px; font-family: inherit; resize: none; }
+        .block label { display: block; font-weight: 600; margin-bottom: 6px; }
+        .toolbar { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+        .tool { background: #f5f5f5; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; }
+        .tool:hover { background: #eaeaea; }
+        .btn { background: #0070D7; color: #fff; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn:hover { background: #005BB5; }
+        .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; }
+        .note { font-size: 13px; color: #777672; text-align: center; margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="/" class="logo"><img src="https://tally.so/images/logo_v2.png" alt="Tally" /></a>
+        <div style="margin-left:auto;display:flex;gap:12px;">
+            <button class="btn" onclick="alert('Form published! (demo)')">Publish</button>
+        </div>
+    </header>
+    <div class="editor">
+        <div class="toolbar">
+            <button class="tool" onclick="addBlock('text')">Text</button>
+            <button class="tool" onclick="addBlock('short')">Short answer</button>
+            <button class="tool" onclick="addBlock('long')">Long answer</button>
+            <button class="tool" onclick="addBlock('choice')">Multiple choice</button>
+            <button class="tool" onclick="addBlock('email')">Email</button>
+            <button class="tool" onclick="addBlock('file')">File upload</button>
+        </div>
+        <h1 contenteditable="true" id="title">Untitled form</h1>
+        <div id="blocks">
+            <div class="block">
+                <label contenteditable="true">What is your name?</label>
+                <input type="text" placeholder="Type your answer..." disabled />
+            </div>
+            <div class="block">
+                <label contenteditable="true">Email address</label>
+                <input type="email" placeholder="name@example.com" disabled />
+            </div>
+        </div>
+        <div class="actions">
+            <button class="tool" onclick="addBlock('short')">+ Add question</button>
+            <button class="btn" onclick="alert('Form saved (demo mode)')">Save form</button>
+        </div>
+        <p class="note">This is a demo clone. Real Tally uses a full Notion-like block editor with conditional logic, payments, signatures and more.</p>
+    </div>
+    <script>
+        function addBlock(type) {
+            const container = document.getElementById('blocks');
+            const div = document.createElement('div');
+            div.className = 'block';
+            let html = '';
+            if (type === 'text') {
+                html = '<p contenteditable="true">Add some text here...</p>';
+            } else if (type === 'short') {
+                html = '<label contenteditable="true">New question</label><input type="text" placeholder="Type your answer..." disabled />';
+            } else if (type === 'long') {
+                html = '<label contenteditable="true">New long question</label><textarea rows="3" placeholder="Type your answer..." disabled></textarea>';
+            } else if (type === 'choice') {
+                html = '<label contenteditable="true">Multiple choice</label><div><input type="radio" disabled /> Option 1</div><div><input type="radio" disabled /> Option 2</div>';
+            } else if (type === 'email') {
+                html = '<label contenteditable="true">Email</label><input type="email" placeholder="name@example.com" disabled />';
+            } else if (type === 'file') {
+                html = '<label contenteditable="true">File upload</label><input type="file" disabled />';
+            }
+            div.innerHTML = html;
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>
